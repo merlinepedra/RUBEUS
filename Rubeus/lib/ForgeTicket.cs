@@ -462,13 +462,13 @@ namespace Rubeus
                         kvi.LogonDomainId = new Ndr._RPC_SID(new SecurityIdentifier(domainSid));
                     }
                     if (userObject.ContainsKey("logoncount"))
+                    {
                         kvi.LogonCount = short.Parse((string)userObject["logoncount"]);
-                    else
-                        kvi.LogonCount = 0;
+                    }
                     if (userObject.ContainsKey("badpwdcount"))
+                    {
                         kvi.BadPasswordCount = short.Parse((string)userObject["badpwdcount"]);
-                    else
-                        kvi.BadPasswordCount = 0;
+                    }
                     if (userObject.ContainsKey("lastlogon") && (DateTime)userObject["lastlogon"] != DateTime.MinValue)
                     {
                         kvi.LogonTime = new Ndr._FILETIME((DateTime)userObject["lastlogon"]);
