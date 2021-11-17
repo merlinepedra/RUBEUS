@@ -461,17 +461,23 @@ namespace Rubeus
                     {
                         kvi.LogonDomainId = new Ndr._RPC_SID(new SecurityIdentifier(domainSid));
                     }
-                    kvi.LogonCount = short.Parse((string)userObject["logoncount"]);
-                    kvi.BadPasswordCount = short.Parse((string)userObject["badpwdcount"]);
-                    if ((DateTime)userObject["lastlogon"] != DateTime.MinValue)
+                    if (userObject.ContainsKey("logoncount"))
+                        kvi.LogonCount = short.Parse((string)userObject["logoncount"]);
+                    else
+                        kvi.LogonCount = 0;
+                    if (userObject.ContainsKey("badpwdcount"))
+                        kvi.BadPasswordCount = short.Parse((string)userObject["badpwdcount"]);
+                    else
+                        kvi.BadPasswordCount = 0;
+                    if (userObject.ContainsKey("lastlogon") && (DateTime)userObject["lastlogon"] != DateTime.MinValue)
                     {
                         kvi.LogonTime = new Ndr._FILETIME((DateTime)userObject["lastlogon"]);
                     }
-                    if ((DateTime)userObject["lastlogoff"] != DateTime.MinValue)
+                    if (userObject.ContainsKey("lastlogoff") && (DateTime)userObject["lastlogoff"] != DateTime.MinValue)
                     {
                         kvi.LogoffTime = new Ndr._FILETIME((DateTime)userObject["lastlogoff"]);
                     }
-                    if ((DateTime)userObject["pwdlastset"] != DateTime.MinValue)
+                    if (userObject.ContainsKey("pwdlastset") && (DateTime)userObject["pwdlastset"] != DateTime.MinValue)
                     {
                         kvi.PasswordLastSet = new Ndr._FILETIME((DateTime)userObject["pwdlastset"]);
                     }
